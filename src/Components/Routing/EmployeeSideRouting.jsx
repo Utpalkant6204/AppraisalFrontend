@@ -23,21 +23,7 @@ const EmployeeSideRouting = () => {
             <FaHome className="me-1 mt-1" size={18} /> <span>Home</span>
           </NavLink>
         </div>
-        <div
-          className={`border-b-2 p-2 text-center my-1 `}
-          style={{ fontFamily: "revert-layer" }}
-        >
-          <NavLink
-            to="/employee-about"
-            className={({ isActive }) =>
-              `${
-                isActive ? "text-green-700" : "text-black"
-              } text-lg uppercase flex justify-center`
-            }
-          >
-            <ImProfile className="mt-1.5 me-1" size={16} /> <span>Profile</span>
-          </NavLink>
-        </div>
+
         <div
           className={`border-b-2 p-2 text-center my-1 `}
           style={{ fontFamily: "revert-layer" }}
@@ -66,6 +52,21 @@ const EmployeeSideRouting = () => {
             }
           >
             <MdTaskAlt className="mt-1 me-1" size={20} /> <span>Response</span>
+          </NavLink>
+        </div>
+        <div
+          className={`border-b-2 p-2 text-center my-1 `}
+          style={{ fontFamily: "revert-layer" }}
+        >
+          <NavLink
+            to="/employee-about"
+            className={({ isActive }) =>
+              `${
+                isActive ? "text-green-700" : "text-black"
+              } text-lg uppercase flex justify-center`
+            }
+          >
+            <ImProfile className="mt-1.5 me-1" size={16} /> <span>Profile</span>
           </NavLink>
         </div>
       </div>
