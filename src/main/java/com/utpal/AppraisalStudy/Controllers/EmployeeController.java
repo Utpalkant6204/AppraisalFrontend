@@ -26,8 +26,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/{id}/getEmployee")
-    public ResponseEntity<EmployeeWithListDTO> getEmployee(@PathVariable("id") long Id){
-        EmployeeWithListDTO employeeWithListDTO = employeeService.getEmployee(Id);
+    public ResponseEntity<EmployeeDTO> getEmployee(@PathVariable("id") long Id){
+        EmployeeDTO employeeWithListDTO = employeeService.getEmployee(Id);
         return new ResponseEntity<>(employeeWithListDTO, HttpStatus.OK);
     }
     @PostMapping("/saveEmployee")
