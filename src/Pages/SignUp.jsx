@@ -76,9 +76,9 @@ const SignUp = () => {
   return (
     <div
       style={{ background: `url(${image})` }}
-      className="w-full relative flex min-h-screen text-gray-800 flex-col justify-center overflow-hidden bg-gray-50 py-6 sm:py-12 h-screen bg-cover bg-center"
+      className="w-full relative flex min-h-screen text-gray-800 flex-col justify-center bg-gray-50 py-1 sm:py-4 bg-cover bg-center"
     >
-      <div className="relative py-3 sm:max-w-lg mx-auto text-center w-full">
+      <div className="relative sm:max-w-lg mx-auto text-center w-full">
         <span className="text-2xl font-light text-white">
           Register to your account
         </span>
