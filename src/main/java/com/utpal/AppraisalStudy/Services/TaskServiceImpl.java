@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -56,8 +57,25 @@ public class TaskServiceImpl implements TaskService{
         System.out.println(id);
         if(optionalTask.isPresent()){
             Tasks task = optionalTask.get();
-            System.out.println(task.getDescription());
-            System.out.println(taskDTO.getDescription());
+            if(Objects.nonNull(taskDTO.getName()) && !"".equalsIgnoreCase(task.getName())){
+                task.setName(taskDTO.getName());
+            }
+
+            if(Objects.nonNull(taskDTO.getDescription()) && !"".equalsIgnoreCase(taskDTO.getDescription())){
+                task.setDescription(taskDTO.getDescription());
+            }
+
+            if(Objects.nonNull(taskDTO.getStartDate()) && taskDTO.getStartDate() != null){
+                task.setStartDate(taskDTO.getStartDate());
+            }
+
+            if(Objects.nonNull(taskDTO.getEndDate()) && taskDTO.getEndDate() != null){
+                task.setEndDate(taskDTO.getEndDate());
+            }
+
+            task.setAppraisable(taskDTO.isAppraisable());
+
+            System.out.println(taskDTO.getName());
             task.setRating(taskDTO.getRating());
             Tasks updatedTask = taskRepository.save(task);
 

@@ -30,9 +30,16 @@ public class EmployeeController {
         EmployeeDTO employeeWithListDTO = employeeService.getEmployee(Id);
         return new ResponseEntity<>(employeeWithListDTO, HttpStatus.OK);
     }
+
     @PostMapping("/saveEmployee")
     public ResponseEntity<EmployeeDTO> saveEmployee(@RequestBody Employees employees){
         EmployeeDTO emp = employeeService.saveEmployees(employees);
         return new ResponseEntity<>(emp, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/{id}/employeeDetails")
+    public ResponseEntity<EmployeeWithListDTO> getEmployeeDetails(@PathVariable("id") long id){
+        EmployeeWithListDTO emp = employeeService.getEmployeeDetails(id);
+        return new ResponseEntity<>(emp, HttpStatus.OK);
     }
 }

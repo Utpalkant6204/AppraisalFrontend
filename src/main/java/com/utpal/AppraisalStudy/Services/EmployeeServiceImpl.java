@@ -49,6 +49,17 @@ public class EmployeeServiceImpl implements EmployeeService{
         }
     }
 
+    @Override
+    public EmployeeWithListDTO getEmployeeDetails(long id) {
+        Optional<Employees> emp = employeeRepository.findById(id);
+        if(emp.isPresent()){
+            Employees employees = emp.get();
+            return modelMapper.map(mapEmployeeWithSortedTasks(employees), EmployeeWithListDTO.class);
+        }else{
+            throw new UserNotFoundException("Employee Not found with Id : " + id);
+        }
+    }
+
 
     private EmployeeWithListDTO mapEmployeeWithSortedTasks(Employees employees) {
         EmployeeWithListDTO employeeDTO = this.modelMapper.map(employees, EmployeeWithListDTO.class);
