@@ -3,10 +3,12 @@ import EmployeeLayout from "../../Layouts/EmployeeLayout";
 import { VscAdd } from "react-icons/vsc";
 import Loader from "../../Components/Loader/Loader";
 import useUserDetails from "../../Hooks/useUserDetails";
+import Modal from "../../Components/modal/AddProjectModal";
 
 const Tasks = () => {
   const [notify, setNotify] = useState(false);
-  const { projects, loading, error } = useUserDetails();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const { projects, loading, error } = useUserDetails(isModalOpen);
 
   const calculateDuration = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -38,6 +40,15 @@ const Tasks = () => {
     setNotify(true);
   };
 
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+  console.log(isModalOpen);
+
   return (
     <EmployeeLayout>
       <div className="flex justify-center items-center h-[88vh] p-4 overflow-hidden">
@@ -60,7 +71,10 @@ const Tasks = () => {
                 </span>
               </div>
               <div className="ps-16">
-                <button className="flex items-center border rounded-md bg-green-400 p-2 hover:bg-green-600 hover:text-white hover:shadow">
+                <button
+                  onClick={openModal}
+                  className="flex items-center shadow-md border rounded-md bg-green-400 p-2 hover:bg-green-600 hover:text-white hover:shadow"
+                >
                   <span className="me-2">
                     <VscAdd size={15} />
                   </span>
@@ -199,6 +213,11 @@ const Tasks = () => {
                     </button>
                   </div>
                 </div>
+              )}
+              {isModalOpen && (
+                <Modal
+                  closeModal={closeModal}
+                />
               )}
             </>
           )}
