@@ -1,41 +1,85 @@
 import React from "react";
+import { NavLink } from "react-router-dom";
 
-const ProfileCard = () => {
+const ProfileCard = ({ profile }) => {
+  const formatDate = (inputDate) => {
+    const date = new Date(inputDate);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const formattedDate = `${day}/${month}/${year}`;
+    return formattedDate;
+  };
+
+  const convertTenure = (months) => {
+    const years = Math.floor(months / 12);
+    const remainingMonths = months % 12;
+    return { years, months: remainingMonths };
+  };
+
+  const tenure = convertTenure(profile.tenure);
+
   return (
-    <div className="bg-white justify-center items-center overflow-hidden md:max-w-sm rounded-lg shadow-sm mx-auto">
-      <div className="relative h-20">
-        <img
-          className="absolute h-full w-full object-cover"
-          src="https://images.unsplash.com/photo-1448932133140-b4045783ed9e?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=80"
-        />
-      </div>
-      <div className="relative shadow mx-auto h-24 w-24 -my-12 border-white rounded-full overflow-hidden border-4">
-        <img
-          className="object-cover w-full h-full"
-          src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=200&q=80"
-        />
-      </div>
-      <div className="mt-16">
-        <h1 className="text-lg text-center font-semibold">Cassie</h1>
-        <p className="text-sm text-gray-600 text-center">
-          13 connections in common
-        </p>
-      </div>
-      <div className="mt-6 pt-3 flex flex-wrap mx-6 border-t">
-        <div className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-          User experience
-        </div>
-        <div className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-          VueJS
-        </div>
-        <div className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-          TailwindCSS
-        </div>
-        <div className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-          React
-        </div>
-        <div className="text-xs mr-2 my-1 uppercase tracking-wider border px-2 text-indigo-600 border-indigo-600 hover:bg-indigo-600 hover:text-indigo-100 cursor-default">
-          Painting
+    <div className="">
+      <div className="max-w-xs">
+        <div className="bg-white shadow-xl rounded-lg py-3">
+          <div className="photo-wrapper p-2">
+            <img
+              className="w-32 h-32 rounded-full mx-auto"
+              src="https://i.ibb.co/0GGmSfY/50994.jpg"
+              alt="John Doe"
+            />
+          </div>
+          <div className="p-2">
+            <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
+              {profile.name}
+            </h3>
+            <div className="text-center text-gray-400 text-xs font-semibold">
+              <p>{profile.designation}</p>
+            </div>
+            <table className="text-xs my-3">
+              <tbody>
+                <tr>
+                  <td className="px-1 py-2 text-gray-500 font-semibold">
+                    Joining Date
+                  </td>
+                  <td className="px-2 py-2">{`${formatDate(
+                    profile.dateOfJoining
+                  )}`}</td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-2 text-gray-500 font-semibold">
+                    Tenure
+                  </td>
+                  <td className="px-2 py-2">
+                    {tenure.years > 0 && <span>{tenure.years} years </span>}
+                    {tenure.months} months
+                  </td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-2 text-gray-500 font-semibold">
+                    Phone
+                  </td>
+                  <td className="px-2 py-2">{profile.phoneNumber}</td>
+                </tr>
+                <tr>
+                  <td className="px-2 py-2 text-gray-500 font-semibold">
+                    Email
+                  </td>
+                  <td className="px-2 py-2">{profile.email}</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div className="text-center my-3">
+              <NavLink
+                to={`/admin-employees/${profile.id}/${profile.name}`}
+                className="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium"
+              >
+                Assign Ratings
+              </NavLink>
+            </div>
+          </div>
         </div>
       </div>
     </div>
