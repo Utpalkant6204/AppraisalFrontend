@@ -9,6 +9,9 @@ import SignUp from "./Pages/SignUp";
 import { useEffect, useState } from "react";
 import Tasks from "./Pages/Employees/Tasks";
 import TaskResponse from "./Pages/Employees/TaskResponse";
+import AdminAbout from "./Pages/Admin/AdminProfile";
+import AdminEmployees from "./Pages/Admin/AdminEmployees";
+import AdminEmployeeResponse from "./Pages/Admin/AdminEmployeeResponse";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -56,9 +59,15 @@ function App() {
       )}
 
       {login && admin && (
-        <Route path="/admin-home">
-          <Route index element={<AdminHome />} />
-        </Route>
+        <>
+          <Route path="/admin-home" element={<AdminHome />} />
+          <Route path="/admin-about" element={<AdminAbout />} />
+          <Route path="/admin-employees" element={<AdminEmployees />} />
+          <Route
+            path="/admin-employees/:id/:name"
+            element={<AdminEmployeeResponse />}
+          />
+        </>
       )}
 
       <Route path="*" element={<NotFound />} />
