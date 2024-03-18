@@ -1,7 +1,7 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
 
-function useUserDetails(isModalOpen, isEditModalOpen) {
+function useUserDetails(isModalOpen, isEditModalOpen, deleteTask) {
   const [profile, setProfile] = useState({});
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -31,7 +31,7 @@ function useUserDetails(isModalOpen, isEditModalOpen) {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [isModalOpen,isEditModalOpen]);
+  }, [isModalOpen, isEditModalOpen, deleteTask]);
 
   return { profile, projects, loading, error };
 }

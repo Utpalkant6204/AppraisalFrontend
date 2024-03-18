@@ -1,4 +1,4 @@
-import  Axios  from "axios";
+import Axios from "axios";
 import { useState } from "react";
 
 function useUpdateProjects() {
@@ -23,7 +23,21 @@ function useUpdateProjects() {
     }
   };
 
-  return { loading, error, data, handleSubmit };
+  const handledelete = async (id, setSeleteDelete) => {
+    try {
+      setLoading(true);
+      const response = await Axios.delete(
+        `http://localhost:8080/task/${id}/deleteTask`
+      );
+      setSeleteDelete(response.data);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return { loading, error, data, handleSubmit, handledelete };
 }
 
 export default useUpdateProjects;

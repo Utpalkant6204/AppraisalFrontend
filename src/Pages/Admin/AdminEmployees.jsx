@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import AdminLayout from "../../Layouts/AdminLayout";
 import useGetAllEmployees from "../../Hooks/useGetAllEmployees";
 import ProfileCard from "../../Components/Cards/ProfileCard";
@@ -6,7 +6,11 @@ import Loader from "../../Components/Loader/Loader";
 
 const AdminEmployees = () => {
   const { profiles, loading, error } = useGetAllEmployees();
-  console.log(profiles);
+  const [input, setInput] = useState('');
+  
+  const filterprofiles = profiles.filter(profile =>
+    profile.name.toLowerCase().includes(input.toLowerCase())
+  );
   return (
     <AdminLayout>
       <div className="flex justify-center items-center h-[88vh] p-4 overflow-hidden">
@@ -29,13 +33,15 @@ const AdminEmployees = () => {
                     List of Employees, Select those you want to give ratings....
                   </span>
                 </div>
-                <div className="ml-5 flex w-[30%] items-center justify-between">
+                <div className="ml-5 flex w-[35%] items-center justify-between">
                   <input
                     type="search"
                     className="relative m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none motion-reduce:transition-none dark:border-neutral-500 dark:text-neutral-200 dark:placeholder:text-neutral-400 dark:focus:border-primary"
-                    placeholder="Search Employee"
+                    placeholder="Search Employee by name...."
                     aria-label="Search"
                     aria-describedby="button-addon2"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
                   />
 
                   <span
@@ -58,7 +64,7 @@ const AdminEmployees = () => {
                 </div>
               </div>
 
-              {profiles
+              {filterprofiles.length > 0 ? filterprofiles
                 .filter(
                   (profile) => profile.designation.toLowerCase() !== "admin"
                 )
@@ -75,7 +81,7 @@ const AdminEmployees = () => {
                       </div>
                     ))}
                   </div>
-                ))}
+                )):<div className="flex justify-center font-bold items-center min-h-[50vh]">No Data Available....</div>}
             </>
           )}
         </div>

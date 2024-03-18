@@ -52,20 +52,20 @@ const EditProjectModal = ({ closeModal, project }) => {
               ></path>
             </svg>
           </button>
-          <h2 className="text-lg font-bold mb-4">Add Projects</h2>
+          <h2 className="text-lg font-bold mb-4">Update Projects</h2>
           <form onSubmit={handleClick}>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
                 <label
-                  class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                  for="inline-full-name"
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  htmlFor="inline-full-name"
                 >
                   Project Name
                 </label>
               </div>
-              <div class="md:w-2/3">
+              <div className="md:w-2/3">
                 <input
-                  class="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="inline-full-name"
                   type="text"
                   required
@@ -76,18 +76,18 @@ const EditProjectModal = ({ closeModal, project }) => {
                 />
               </div>
             </div>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
                 <label
-                  class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                  for="inline-full-name"
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  htmlFor="inline-full-name"
                 >
                   Project Description
                 </label>
               </div>
-              <div class="md:w-2/3">
+              <div className="md:w-2/3">
                 <input
-                  class="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="inline-full-name"
                   type="text"
                   required
@@ -98,18 +98,18 @@ const EditProjectModal = ({ closeModal, project }) => {
                 />
               </div>
             </div>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
                 <label
-                  class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                  for="inline-full-name"
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  htmlFor="inline-full-name"
                 >
                   Start Date
                 </label>
               </div>
-              <div class="md:w-2/3">
+              <div className="md:w-2/3">
                 <input
-                  class="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="inline-full-name"
                   type="date"
                   required
@@ -120,18 +120,18 @@ const EditProjectModal = ({ closeModal, project }) => {
                 />
               </div>
             </div>
-            <div class="md:flex md:items-center mb-6">
-              <div class="md:w-1/3">
+            <div className="md:flex md:items-center mb-6">
+              <div className="md:w-1/3">
                 <label
-                  class="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                  for="inline-full-name"
+                  className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
+                  htmlFor="inline-full-name"
                 >
                   End Date
                 </label>
               </div>
-              <div class="md:w-2/3">
+              <div className="md:w-2/3">
                 <input
-                  class="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
+                  className="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
                   id="inline-full-name"
                   type="date"
                   required
@@ -142,7 +142,7 @@ const EditProjectModal = ({ closeModal, project }) => {
                 />
               </div>
             </div>
-            <div class="md:flex md:items-center mb-6 ps-32">
+            <div className="md:flex md:items-center mb-6 ps-32">
               <input
                 type="checkbox"
                 className="me-2"
@@ -151,8 +151,8 @@ const EditProjectModal = ({ closeModal, project }) => {
                 onChange={handleCheck}
               ></input>
               <label
-                class="block text-gray-500 font-bold md:text-left mb-1 md:mb-0"
-                for="inline-full-name"
+                className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0"
+                htmlFor="inline-full-name"
               >
                 Appraisable
               </label>
@@ -163,7 +163,7 @@ const EditProjectModal = ({ closeModal, project }) => {
                 className="bg-blue-500 text-white px-4 py-2 rounded-md mx-2"
                 onClick={handleClick}
               >
-                Add
+                Update
               </button>
               {error && <p className="text-red-500">Something error Happpens..</p>}
             </div>

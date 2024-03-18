@@ -5,13 +5,16 @@ import Loader from "../../Components/Loader/Loader";
 import useUserDetails from "../../Hooks/useUserDetails";
 import Modal from "../../Components/modal/AddProjectModal";
 import EditProjectModal from "../../Components/modal/EditProjectModal";
+import useUpdateProjects from "../../Hooks/useUpdateProjects";
 
 const Tasks = () => {
   const [notify, setNotify] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
-  const { projects, loading, error } = useUserDetails(isModalOpen, isEditModalOpen);
+  const [deleteTask, setSeleteDelete] = useState(false);
+  const{handledelete} = useUpdateProjects()
+  const { projects, loading, error } = useUserDetails(isModalOpen, isEditModalOpen, deleteTask);
 
   const calculateDuration = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -60,7 +63,10 @@ const Tasks = () => {
     setIsEditModalOpen(false);
     setSelectedProject(null);
   };
-  console.log(isModalOpen);
+  
+  const handleDelete = (id) =>{
+    handledelete(id, setSeleteDelete);
+  }
 
   return (
     <EmployeeLayout>
@@ -201,9 +207,15 @@ const Tasks = () => {
                         <div className="flex justify-center pb-2">
                           <button
                             onClick={() => openEditModal(project)}
-                            class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded"
+                            className="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded"
                           >
                             Edit
+                          </button>
+                          <button
+                            className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded mx-4"
+                            onClick = {()=>handleDelete(project.id)}
+                          >
+                            Delete
                           </button>
                         </div>
                       )}
