@@ -1,15 +1,14 @@
-import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import useSaveProjects from "../../Hooks/useSaveProjects";
+import React, { useState } from "react";
+import useUpdateProjects from "../../Hooks/useUpdateProjects";
 
-const Modal = ({ closeModal }) => {
-  const { handleSubmit, error } = useSaveProjects();
+const EditProjectModal = ({ closeModal, project }) => {
+  const { handleSubmit, error } = useUpdateProjects();
   const [input, setInput] = useState({
-    name: "",
-    description: "",
-    startDate: "",
-    endDate: "",
-    appraisable: false,
+    name: project.name,
+    description: project.description,
+    startDate: project.startDate,
+    endDate: project.endDate,
+    appraisable: project.appraisable,
   });
 
   const handleChange = (e) => {
@@ -24,7 +23,14 @@ const Modal = ({ closeModal }) => {
 
   const handleClick = () => {
     console.log(input);
-    handleSubmit(input, closeModal);
+    handleSubmit(input, closeModal, project.id);
+    setInput({
+      name: "",
+      description: "",
+      startDate: "",
+      endDate: "",
+      appraisable: false,
+    });
   };
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -168,4 +174,4 @@ const Modal = ({ closeModal }) => {
   );
 };
 
-export default Modal;
+export default EditProjectModal;

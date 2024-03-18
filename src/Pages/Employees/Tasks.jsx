@@ -4,11 +4,14 @@ import { VscAdd } from "react-icons/vsc";
 import Loader from "../../Components/Loader/Loader";
 import useUserDetails from "../../Hooks/useUserDetails";
 import Modal from "../../Components/modal/AddProjectModal";
+import EditProjectModal from "../../Components/modal/EditProjectModal";
 
 const Tasks = () => {
   const [notify, setNotify] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const { projects, loading, error } = useUserDetails(isModalOpen);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [selectedProject, setSelectedProject] = useState(null);
+  const { projects, loading, error } = useUserDetails(isModalOpen, isEditModalOpen);
 
   const calculateDuration = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -44,8 +47,18 @@ const Tasks = () => {
     setIsModalOpen(true);
   };
 
+  const openEditModal = (project) => {
+    setSelectedProject(project);
+    setIsEditModalOpen(true);
+  };
+
   const closeModal = () => {
     setIsModalOpen(false);
+  };
+
+  const closeEditModal = () => {
+    setIsEditModalOpen(false);
+    setSelectedProject(null);
   };
   console.log(isModalOpen);
 
@@ -186,7 +199,10 @@ const Tasks = () => {
                       </div>
                       {!notify && (
                         <div className="flex justify-center pb-2">
-                          <button class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded">
+                          <button
+                            onClick={() => openEditModal(project)}
+                            class="bg-transparent hover:bg-green-500 text-green-700 font-semibold hover:text-white py-1 px-4 border border-green-500 hover:border-transparent rounded"
+                          >
                             Edit
                           </button>
                         </div>
@@ -214,9 +230,11 @@ const Tasks = () => {
                   </div>
                 </div>
               )}
-              {isModalOpen && (
-                <Modal
-                  closeModal={closeModal}
+              {isModalOpen && <Modal closeModal={closeModal} />}
+              {isEditModalOpen && (
+                <EditProjectModal
+                  closeModal={closeEditModal}
+                  project={selectedProject}
                 />
               )}
             </>
