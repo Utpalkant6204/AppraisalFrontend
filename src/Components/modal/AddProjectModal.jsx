@@ -74,7 +74,7 @@ const Modal = ({ closeModal }) => {
               <div className="md:w-1/3">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                  htmlFor="inline-full-name"
+                  htmlFor="inline-full-name1"
                 >
                   Project Description
                 </label>
@@ -82,7 +82,7 @@ const Modal = ({ closeModal }) => {
               <div className="md:w-2/3">
                 <input
                   className="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                  id="inline-full-name"
+                  id="inline-full-name1"
                   type="text"
                   required
                   placeholder="which area you wroked....."
@@ -96,7 +96,7 @@ const Modal = ({ closeModal }) => {
               <div className="md:w-1/3">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                  htmlFor="inline-full-name"
+                  htmlFor="inline-full-name2"
                 >
                   Start Date
                 </label>
@@ -104,7 +104,7 @@ const Modal = ({ closeModal }) => {
               <div className="md:w-2/3">
                 <input
                   className="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                  id="inline-full-name"
+                  id="inline-full-name2"
                   type="date"
                   required
                   name="startDate"
@@ -118,7 +118,7 @@ const Modal = ({ closeModal }) => {
               <div className="md:w-1/3">
                 <label
                   className="block text-gray-500 font-bold md:text-right mb-1 md:mb-0 pr-4"
-                  htmlFor="inline-full-name"
+                  htmlFor="inline-full-name3"
                 >
                   End Date
                 </label>
@@ -126,7 +126,7 @@ const Modal = ({ closeModal }) => {
               <div className="md:w-2/3">
                 <input
                   className="bg-gray-00 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
-                  id="inline-full-name"
+                  id="inline-full-name3"
                   type="date"
                   required
                   placeholder="which area you wroked....."
@@ -139,6 +139,7 @@ const Modal = ({ closeModal }) => {
             <div className="md:flex md:items-center mb-6 ps-32">
               <input
                 type="checkbox"
+                id="inline"
                 className="me-2"
                 checked={input.appraisable}
                 name="appraisable"
@@ -146,7 +147,7 @@ const Modal = ({ closeModal }) => {
               ></input>
               <label
                 className="block text-gray-500 font-bold md:text-left mb-1 md:mb-0"
-                htmlFor="inline-full-name"
+                htmlFor="inline"
               >
                 Appraisable
               </label>

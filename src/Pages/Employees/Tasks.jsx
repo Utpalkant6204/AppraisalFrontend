@@ -13,8 +13,12 @@ const Tasks = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [deleteTask, setSeleteDelete] = useState(false);
-  const{handledelete} = useUpdateProjects()
-  const { projects, loading, error } = useUserDetails(isModalOpen, isEditModalOpen, deleteTask);
+  const { handledelete } = useUpdateProjects();
+  const { projects, loading, error } = useUserDetails(
+    isModalOpen,
+    isEditModalOpen,
+    deleteTask
+  );
 
   const calculateDuration = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -63,10 +67,10 @@ const Tasks = () => {
     setIsEditModalOpen(false);
     setSelectedProject(null);
   };
-  
-  const handleDelete = (id) =>{
+
+  const handleDelete = (id) => {
     handledelete(id, setSeleteDelete);
-  }
+  };
 
   return (
     <EmployeeLayout>
@@ -89,22 +93,34 @@ const Tasks = () => {
                   Add Your Projects here that you worked on for appraisal......
                 </span>
               </div>
-              <div className="ps-16">
-                <button
-                  onClick={openModal}
-                  className="flex items-center shadow-md border rounded-md bg-green-400 p-2 hover:bg-green-600 hover:text-white hover:shadow"
-                >
-                  <span className="me-2">
-                    <VscAdd size={15} />
-                  </span>
-                  <span
-                    className="text-lg uppercase"
-                    style={{ fontFamily: "monospace" }}
+              {!notify ? (
+                <div className="ps-16">
+                  <button
+                    onClick={openModal}
+                    className="flex items-center shadow-md border rounded-md bg-green-400 p-2 hover:bg-green-600 hover:text-white hover:shadow"
                   >
-                    Add Projects
-                  </span>
-                </button>
-              </div>
+                    <span className="me-2">
+                      <VscAdd size={15} />
+                    </span>
+                    <span
+                      className="text-lg uppercase"
+                      style={{ fontFamily: "monospace" }}
+                    >
+                      Add Projects
+                    </span>
+                  </button>
+                </div>
+              ) : (
+                <div className="ps-16 flex items-center">
+                  <p
+                    className="italic me-4 text-green-800 underline mx-4"
+                    style={{ fontFamily: "cursive" }}
+                  >
+                    No longer Able to add new projects, already notify for
+                    appraisable...
+                  </p>
+                </div>
+              )}
               {projects.length < 1 && (
                 <div
                   className="h-[50vh] w-full flex justify-center items-center cursive text-md"
@@ -213,7 +229,7 @@ const Tasks = () => {
                           </button>
                           <button
                             className="bg-transparent hover:bg-red-500 text-red-700 font-semibold hover:text-white py-1 px-4 border border-red-500 hover:border-transparent rounded mx-4"
-                            onClick = {()=>handleDelete(project.id)}
+                            onClick={() => handleDelete(project.id)}
                           >
                             Delete
                           </button>
@@ -222,21 +238,25 @@ const Tasks = () => {
                     </div>
                   ))}
                   <div className="ps-16 pb-5 flex justify-end items-center">
-                    <p
-                      className="italic me-4 text-red-800 underline"
-                      style={{ fontFamily: "cursive" }}
-                    >
-                      After Notify, you will not able to edit any project{" "}
-                    </p>
+                    {!notify && (
+                      <p
+                        className="italic me-4 text-red-800 underline"
+                        style={{ fontFamily: "cursive" }}
+                      >
+                        After Notify, you will not able to Add or edit any
+                        project{" "}
+                      </p>
+                    )}
                     <button
                       className="flex items-center border rounded-md bg-blue-400 p-2 hover:bg-blue-600 hover:text-white hover:shadow"
                       onClick={handleNotify}
+                      disabled={notify}
                     >
                       <span
                         className="text-lg uppercase"
                         style={{ fontFamily: "monospace" }}
                       >
-                        Notify{" "}
+                        {notify ? "Notified" : "Notify"}
                       </span>
                     </button>
                   </div>

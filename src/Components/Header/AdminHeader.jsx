@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
+import Notification from "../Notification/NotificationAdmin";
 
 function AdminHeader() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -128,6 +129,7 @@ function AdminHeader() {
           </div>
 
           <div className="hidden lg:flex items-center justify-between lg:order-2">
+            <Notification />
             <NavLink
               to="/admin-about"
               className="border-2 rounded-full cursor-pointer border-blue-500"
