@@ -1,9 +1,10 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
 
-function useUserDetails(isModalOpen, isEditModalOpen, deleteTask) {
+function useUserDetails(isModalOpen, isEditModalOpen, deleteTask, save) {
   const [profile, setProfile] = useState({});
   const [projects, setProjects] = useState([]);
+  const [notify, setNotify] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   let timeoutId;
@@ -15,9 +16,10 @@ function useUserDetails(isModalOpen, isEditModalOpen, deleteTask) {
         const res = await Axios.get(
           `http://localhost:8080/employee/${data.id}/employeeDetails`
         );
-        console.log(res.data);
+        console.log(res.data.notifybyemployee);
         setProfile(res.data);
         setProjects(res.data.tasks);
+        setNotify(res.data.notifybyemployee);
       } catch (error) {
         setError(error);
       } finally {
@@ -31,9 +33,9 @@ function useUserDetails(isModalOpen, isEditModalOpen, deleteTask) {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, [isModalOpen, isEditModalOpen, deleteTask]);
+  }, [isModalOpen, isEditModalOpen, deleteTask, save]);
 
-  return { profile, projects, loading, error };
+  return { profile, projects, loading, error, notify };
 }
 
 export default useUserDetails;

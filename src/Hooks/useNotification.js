@@ -5,6 +5,7 @@ const useNotification = (isOpen, clicked) => {
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [save, setSave] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +55,31 @@ const useNotification = (isOpen, clicked) => {
     }
   };
 
-  return { data, loading, error, deteleData, deteleAll };
+  const saveNotification = async (input) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await axios.post(
+        `http://localhost:8080/notification/saveNotification`,
+        input
+      );
+      setSave(true);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return {
+    data,
+    loading,
+    error,
+    deteleData,
+    deteleAll,
+    save,
+    saveNotification,
+  };
 };
 
 export default useNotification;

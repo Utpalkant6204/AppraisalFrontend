@@ -6,19 +6,23 @@ import useUserDetails from "../../Hooks/useUserDetails";
 import Modal from "../../Components/modal/AddProjectModal";
 import EditProjectModal from "../../Components/modal/EditProjectModal";
 import useUpdateProjects from "../../Hooks/useUpdateProjects";
+import useNotification from "../../Hooks/useNotification";
 
 const Tasks = () => {
-  const [notify, setNotify] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [deleteTask, setSeleteDelete] = useState(false);
   const { handledelete } = useUpdateProjects();
-  const { projects, loading, error } = useUserDetails(
+  const { saveNotification, save } = useNotification();
+  const { profile, projects, loading, error, notify } = useUserDetails(
     isModalOpen,
     isEditModalOpen,
-    deleteTask
+    deleteTask,
+    save
   );
+
+  console.log(notify);
 
   const calculateDuration = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -47,7 +51,11 @@ const Tasks = () => {
   };
 
   const handleNotify = () => {
-    setNotify(true);
+    const inputs = {
+      employeeId : profile.id,
+      employeeName : profile.name
+    };
+    saveNotification(inputs);
   };
 
   const openModal = () => {
