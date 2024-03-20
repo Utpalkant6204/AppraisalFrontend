@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import EmployeeLayout from "../../Layouts/EmployeeLayout";
 import { VscAdd } from "react-icons/vsc";
 import Loader from "../../Components/Loader/Loader";
@@ -21,8 +21,6 @@ const Tasks = () => {
     deleteTask,
     save
   );
-
-  console.log(notify);
 
   const calculateDuration = (startDate, endDate) => {
     const start = new Date(startDate);

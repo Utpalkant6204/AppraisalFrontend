@@ -190,7 +190,7 @@ const AdminUpdateModal = ({ closeModal, project }) => {
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded-md mx-2"
               >
-                Update
+                Assign
               </button>
               {error && (
                 <p className="text-red-500">Something error Happpens..</p>

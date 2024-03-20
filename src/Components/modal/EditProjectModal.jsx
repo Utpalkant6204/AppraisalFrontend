@@ -23,7 +23,10 @@ const EditProjectModal = ({ closeModal, project }) => {
 
   const handleClick = (e) => {
     e.preventDefault();
-    console.log(input);
+    if (new Date(input.endDate) <= new Date(input.startDate)) {
+      alert("End date must be greater than start date");
+      return;
+    }
     handleSubmit(input, closeModal, project.id);
     setInput({
       name: "",

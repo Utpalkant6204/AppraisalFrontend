@@ -16,7 +16,6 @@ function useUserDetails(isModalOpen, isEditModalOpen, deleteTask, save) {
         const res = await Axios.get(
           `http://localhost:8080/employee/${data.id}/employeeDetails`
         );
-        console.log(res.data.notifybyemployee);
         setProfile(res.data);
         setProjects(res.data.tasks);
         setNotify(res.data.notifybyemployee);

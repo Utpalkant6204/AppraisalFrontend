@@ -22,8 +22,12 @@ const Modal = ({ closeModal }) => {
     setInput({ ...input, appraisable: e.target.checked });
   };
 
-  const handleClick = () => {
-    console.log(input);
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (new Date(input.endDate) <= new Date(input.startDate)) {
+      alert("End date must be greater than start date");
+      return;
+    }
     handleSubmit(input, closeModal);
   };
   return (
@@ -143,6 +147,7 @@ const Modal = ({ closeModal }) => {
                 className="me-2"
                 checked={input.appraisable}
                 name="appraisable"
+                required
                 onChange={handleCheck}
               ></input>
               <label
@@ -159,7 +164,9 @@ const Modal = ({ closeModal }) => {
               >
                 Add
               </button>
-              {error && <p className="text-red-500">Something error Happpens..</p>}
+              {error && (
+                <p className="text-red-500">Something error Happpens..</p>
+              )}
             </div>
           </form>
         </div>

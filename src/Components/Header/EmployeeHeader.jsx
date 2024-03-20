@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
+import useUserDetails from "../../Hooks/useUserDetails";
 
 function EmployeeHeader() {
   const [isMobileMenuOpen, setMobileMenuOpen] = useState(false);
   const navigation = useNavigate();
+  const { profile } = useUserDetails();
 
   const handleMobileMenuToggle = () => {
     setMobileMenuOpen(!isMobileMenuOpen);
@@ -25,7 +27,6 @@ function EmployeeHeader() {
 
   const HandleClick = (e) => {
     e.preventDefault();
-    console.log("clicked");
     check();
   };
 
@@ -128,6 +129,11 @@ function EmployeeHeader() {
           </div>
 
           <div className="hidden lg:flex items-center justify-between lg:order-2">
+            {profile.noifybyadmin && (
+              <p className="text-green-800 text-sm me-4">
+                Hurray !!, Rating assigned by Admin
+              </p>
+            )}
             <NavLink
               to="/employee-about"
               className="border-2 rounded-full cursor-pointer border-blue-500"

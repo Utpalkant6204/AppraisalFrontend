@@ -98,6 +98,7 @@ const SignUp = () => {
               onChange={handleChange}
               required
             />
+            <p className="text-sm">Name will reuired atleast 3 characters</p>
             <label className="block mt-3 font-semibold"> Email </label>
             <input
               type="email"
