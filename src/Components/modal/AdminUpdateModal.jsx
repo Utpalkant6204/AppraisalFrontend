@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useUpdateProjects from "../../Hooks/useUpdateProjects";
 
 const AdminUpdateModal = ({ closeModal, project }) => {
+  const [error1, setError1] = useState(false);
   const { handleSubmit, error } = useUpdateProjects();
   const [input, setInput] = useState({
     name: project.name,
@@ -16,22 +17,18 @@ const AdminUpdateModal = ({ closeModal, project }) => {
     const { value, name } = e.target;
 
     setInput({ ...input, [name]: value });
+    setError1(false);
   };
 
-  const handleCheck = (e) => {
-    setInput({ ...input, appraisable: e.target.checked });
-  };
+  const handleClick = (e) => {
+    e.preventDefault();
+    const rating = parseFloat(input.rating);
 
-  const handleClick = () => {
-    console.log(input);
+    if (isNaN(rating) || rating < 0 || rating > 10) {
+      setError1(true);
+      return;
+    }
     handleSubmit(input, closeModal, project.id);
-    setInput({
-      name: "",
-      description: "",
-      startDate: "",
-      endDate: "",
-      appraisable: false,
-    });
   };
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
@@ -167,6 +164,9 @@ const AdminUpdateModal = ({ closeModal, project }) => {
                   value={input.rating > -1 ? input.rating : ""}
                   onChange={handleChange}
                 />
+                {error1 && (
+                  <p className="text-red-500 text-sm">Rating must be 0 to 10</p>
+                )}
               </div>
             </div>
             <div className="md:flex md:items-center mb-6 ps-32">
@@ -176,7 +176,6 @@ const AdminUpdateModal = ({ closeModal, project }) => {
                 className="me-2"
                 checked={input.appraisable}
                 name="appraisable"
-                onChange={handleCheck}
                 disabled
               ></input>
               <label
@@ -190,7 +189,6 @@ const AdminUpdateModal = ({ closeModal, project }) => {
               <button
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded-md mx-2"
-                onClick={handleClick}
               >
                 Update
               </button>

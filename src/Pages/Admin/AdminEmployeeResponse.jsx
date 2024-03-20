@@ -4,19 +4,21 @@ import Loader from "../../Components/Loader/Loader";
 import useGetEmployeeAdmin from "../../Hooks/useGetEmployeeAdmin";
 import { useParams } from "react-router-dom";
 import AdminUpdateModal from "../../Components/modal/AdminUpdateModal";
+import useNotification from "../../Hooks/useNotification";
 
 const AdminEmployeeResponse = () => {
-  const [notify, setNotify] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const { fetchData, profile, projects, loading, error, notifyByEmployee } =
     useGetEmployeeAdmin();
 
+  const { upDateByAdmin, save } = useNotification();
+
   const { id, name } = useParams();
 
   useEffect(() => {
     fetchData(id);
-  }, []);
+  }, [isEditModalOpen, save]);
 
   const calculateDuration = (startDate, endDate) => {
     const start = new Date(startDate);
@@ -45,7 +47,6 @@ const AdminEmployeeResponse = () => {
   };
 
   const openEditModal = (project) => {
-    console.log(profile, "hi");
     setSelectedProject(project);
     setIsEditModalOpen(true);
   };
@@ -55,7 +56,13 @@ const AdminEmployeeResponse = () => {
     setSelectedProject(null);
   };
 
-  console.log(projects);
+  const handleNotify = () => {
+    console.log("hi");
+    const inputData = {
+      noifybyadmin: true,
+    };
+    upDateByAdmin(id, inputData);
+  };
 
   return (
     <AdminLayout>
@@ -69,7 +76,7 @@ const AdminEmployeeResponse = () => {
           )}
           {!loading && (
             <>
-              <div className="flex justify-between p-10">
+              <div className="flex-row justify-between p-10">
                 <div
                   className=" pb-5 text-red-500"
                   style={{ fontFamily: "cursive" }}
@@ -83,10 +90,22 @@ const AdminEmployeeResponse = () => {
                     </span>
                   </span>
                 </div>
+                {profile.noifybyadmin && (
+                  <div className="ps-4 flex items-center">
+                    <p
+                      className="italic me-4 text-green-800 underline mx-4"
+                      style={{ fontFamily: "cursive" }}
+                    >
+                      No longer Able to update ratings, already notify for
+                      appraisable...
+                    </p>
+                  </div>
+                )}
               </div>
+
               {notifyByEmployee ? (
                 <div className="ps-20">
-                  <div className="text-2xl underline font-mono italic text-green-900">
+                  <div className="text-2xl underline text-green-900 font-sans">
                     Projects
                   </div>
                   <div className="pe-4 pt-8">
@@ -184,7 +203,7 @@ const AdminEmployeeResponse = () => {
                             </span>
                           </div>
                         </div>
-                        {!notify && (
+                        {!profile.noifybyadmin ? (
                           <div className="flex justify-center pb-2">
                             <button
                               onClick={() => openEditModal(project)}
@@ -195,33 +214,40 @@ const AdminEmployeeResponse = () => {
                             {project.rating > -1 && (
                               <div className="ms-4">
                                 <p className="border rounded p-1 px-2 text-sm border-red-400">
-                                  Assign Rating : {project.rating}
+                                  Assigned Rating : {project.rating}
                                 </p>
                               </div>
                             )}
+                          </div>
+                        ) : (
+                          <div className="flex justify-center pb-2">
+                            <p className="border rounded p-1 px-2 text-sm border-red-400">
+                              Assigned Rating : {project.rating}
+                            </p>
                           </div>
                         )}
                       </div>
                     ))}
                     <div className="ps-16 pb-5 flex justify-end items-center">
-                      {!notify && (
+                      {!profile.noifybyadmin && (
                         <p
                           className="italic me-4 text-red-800 underline"
                           style={{ fontFamily: "cursive" }}
                         >
-                          After Notify, you will not able to Add or edit any
-                          project{" "}
+                          After Notify, you will not be able to update any
+                          ratings{" "}
                         </p>
                       )}
                       <button
                         className="flex items-center border rounded-md bg-blue-400 p-2 hover:bg-blue-600 hover:text-white hover:shadow"
-                        disabled={notify}
+                        disabled={profile.noifybyadmin}
+                        onClick={handleNotify}
                       >
                         <span
                           className="text-lg uppercase"
                           style={{ fontFamily: "monospace" }}
                         >
-                          {notify ? "Notified" : "Notify"}
+                          {profile.noifybyadmin ? "Notified" : "Notify"}
                         </span>
                       </button>
                     </div>

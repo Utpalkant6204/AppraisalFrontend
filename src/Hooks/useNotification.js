@@ -71,6 +71,23 @@ const useNotification = (isOpen, clicked) => {
     }
   };
 
+  const upDateByAdmin = async (id, input) => {
+    setLoading(true);
+    setError(null);
+
+    try {
+      const response = await axios.put(
+        `http://localhost:8080/notification/${id}/updateNotification`,
+        input
+      );
+      setSave(true);
+    } catch (error) {
+      setError(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return {
     data,
     loading,
@@ -79,6 +96,7 @@ const useNotification = (isOpen, clicked) => {
     deteleAll,
     save,
     saveNotification,
+    upDateByAdmin
   };
 };
 

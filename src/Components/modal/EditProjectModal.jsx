@@ -21,7 +21,8 @@ const EditProjectModal = ({ closeModal, project }) => {
     setInput({ ...input, appraisable: e.target.checked });
   };
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
     console.log(input);
     handleSubmit(input, closeModal, project.id);
     setInput({
@@ -162,11 +163,12 @@ const EditProjectModal = ({ closeModal, project }) => {
               <button
                 type="submit"
                 className="bg-blue-500 text-white px-4 py-2 rounded-md mx-2"
-                onClick={handleClick}
               >
                 Update
               </button>
-              {error && <p className="text-red-500">Something error Happpens..</p>}
+              {error && (
+                <p className="text-red-500">Something error Happpens..</p>
+              )}
             </div>
           </form>
         </div>
