@@ -5,6 +5,7 @@ function useGetEmployeeAdmin() {
   const [profile, setProfile] = useState({});
   const [projects, setProjects] = useState([]);
   const [notifyByEmployee, setNotify] = useState(false);
+  const [attribute, setAttribute] = useState({});
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -17,6 +18,7 @@ function useGetEmployeeAdmin() {
       setProfile(res.data);
       setProjects(res.data.tasks);
       setNotify(res.data.notifybyemployee);
+      setAttribute(!res.data.attribute ? {} : res.data.attribute);
     } catch (error) {
       setError(error);
       console.log(error);
@@ -25,7 +27,15 @@ function useGetEmployeeAdmin() {
     }
   };
 
-  return { profile, projects, loading, error, notifyByEmployee, fetchData };
+  return {
+    profile,
+    projects,
+    loading,
+    error,
+    notifyByEmployee,
+    fetchData,
+    attribute,
+  };
 }
 
 export default useGetEmployeeAdmin;

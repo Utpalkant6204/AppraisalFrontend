@@ -3,7 +3,7 @@ import EMPLayout from "../../Layouts/EmployeeLayout";
 import useProfile from "../../Hooks/useProfile";
 import Loader from "../../Components/Loader/Loader";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import "./Animation.css";
+import "../Animation.css";
 
 const EmployeeHome = () => {
   const { profile, loading, error } = useProfile();

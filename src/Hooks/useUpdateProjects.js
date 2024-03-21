@@ -11,7 +11,7 @@ function useUpdateProjects() {
     try {
       setLoading(true);
       const response = await Axios.put(
-        `http://localhost:8080/task/${id}/updateTask`,
+        `http://localhost:8080/employee/${id}/updateTask`,
         formData
       );
       setData(response.data);
@@ -27,7 +27,7 @@ function useUpdateProjects() {
     try {
       setLoading(true);
       const response = await Axios.delete(
-        `http://localhost:8080/task/${id}/deleteTask`
+        `http://localhost:8080/employee/${id}/deleteTask`
       );
       setSeleteDelete(response.data);
     } catch (error) {

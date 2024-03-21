@@ -10,9 +10,7 @@ function useProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await Axios.get(
-          `http://localhost:8080/employee/getEmployees`
-        );
+        const res = await Axios.get(`http://localhost:8080/admin/getEmployees`);
         setProfile(res.data);
       } catch (error) {
         setError(error);

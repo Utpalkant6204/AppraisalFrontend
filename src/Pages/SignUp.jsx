@@ -8,6 +8,7 @@ import Axios from "axios";
 const SignUp = () => {
   const [validNumber, setValidNumber] = useState(false);
   const [validatePassword, setValidatePassword] = useState(false);
+  const [validateName, setValidateName] = useState(false);
   const [formInput, setFormInput] = useState({
     name: "",
     email: "",
@@ -16,21 +17,19 @@ const SignUp = () => {
     designation: "",
     phoneNumber: "",
   });
+  const nameRegex = /^[a-zA-Z\s]+$/;
 
   const handleChange = (e) => {
     setValidNumber(false);
     setValidatePassword(false);
+    setValidateName(false);
     const { value, name } = e.target;
-
     setFormInput({ ...formInput, [name]: value });
   };
 
   const saveDatatoBackend = async (input) => {
     try {
-      const res = await Axios.post(
-        "http://localhost:8080/employee/saveEmployee",
-        input
-      );
+      const res = await Axios.post("http://localhost:8080/signup", input);
 
       if (res.status == 201) {
         toast.success("Data Saved, Please click Login...");
@@ -47,7 +46,9 @@ const SignUp = () => {
     if (
       (formInput.phoneNumber.length > 0 &&
         formInput.phoneNumber.length != 10) ||
-      formInput.password.length < 8
+      formInput.password.length < 8 ||
+      formInput.name.length < 3 ||
+      !nameRegex.test(formInput.name)
     ) {
       if (formInput.phoneNumber.length != 10) {
         setValidNumber(true);
@@ -55,6 +56,10 @@ const SignUp = () => {
 
       if (formInput.password.length < 8) {
         setValidatePassword(true);
+      }
+
+      if (formInput.name.length < 3 || !nameRegex.test(formInput.name)) {
+        setValidateName(true);
       }
 
       return;
@@ -98,7 +103,11 @@ const SignUp = () => {
               onChange={handleChange}
               required
             />
-            <p className="text-sm">Name will reuired atleast 3 characters</p>
+            {validateName && (
+              <p className="text-sm text-red-400">
+                Name should only contains characters and at least 3 characters.
+              </p>
+            )}
             <label className="block mt-3 font-semibold"> Email </label>
             <input
               type="email"

@@ -24,7 +24,7 @@ const AdminUpdateModal = ({ closeModal, project }) => {
     e.preventDefault();
     const rating = parseFloat(input.rating);
 
-    if (isNaN(rating) || rating < 0 || rating > 10) {
+    if (isNaN(rating) || rating < 1 || rating > 10) {
       setError1(true);
       return;
     }
@@ -159,13 +159,13 @@ const AdminUpdateModal = ({ closeModal, project }) => {
                   id="inline-full-name4"
                   type="number"
                   required
-                  placeholder="assign rating.... (0-10)"
+                  placeholder="assign rating.... (1-10)"
                   name="rating"
-                  value={input.rating > -1 ? input.rating : ""}
+                  value={input.rating > 0 ? input.rating : ""}
                   onChange={handleChange}
                 />
                 {error1 && (
-                  <p className="text-red-500 text-sm">Rating must be 0 to 10</p>
+                  <p className="text-red-500 text-sm">Rating must be 1 to 10</p>
                 )}
               </div>
             </div>

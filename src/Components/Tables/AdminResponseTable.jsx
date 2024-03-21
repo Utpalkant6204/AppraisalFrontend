@@ -90,7 +90,7 @@ const AdminResponseTable = ({ project, openEditModal, notify }) => {
           >
             Rating Assign
           </button>
-          {project.rating > -1 && (
+          {project.rating > 0 && (
             <div className="ms-4">
               <p className="border rounded p-1 px-2 text-sm border-red-400">
                 Assigned Rating : {project.rating}

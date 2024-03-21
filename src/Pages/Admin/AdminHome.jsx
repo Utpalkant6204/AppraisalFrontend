@@ -3,7 +3,7 @@ import AdminLayout from "../../Layouts/AdminLayout";
 import useProfile from "../../Hooks/useProfile";
 import Loader from "../../Components/Loader/Loader";
 import { IoIosArrowRoundForward } from "react-icons/io";
-import "../Employees/Animation.css";
+import "../Animation.css";
 
 const AdminHome = () => {
   const { profile, loading, error } = useProfile();
