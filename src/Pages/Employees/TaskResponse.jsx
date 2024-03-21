@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import EmployeeLayout from "../../Layouts/EmployeeLayout";
 import useUserDetails from "../../Hooks/useUserDetails";
 import Loader from "../../Components/Loader/Loader";
-import Table from "../../Components/ProjectTable/employeeTable";
+import Table from "../../Components/Tables/employeeTable";
 
 const TaskResponse = () => {
   const { profile, projects, loading, error } = useUserDetails();
