@@ -1,16 +1,22 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AdminLayout from "../../Layouts/AdminLayout";
-import useGetAllEmployees from "../../Hooks/useGetAllEmployees";
 import ProfileCard from "../../Components/Cards/ProfileCard";
 import Loader from "../../Components/Loader/Loader";
+import useSearch from "../../Hooks/useSearch";
 
 const AdminEmployees = () => {
-  const { profiles, loading, error } = useGetAllEmployees();
-  const [input, setInput] = useState('');
-  
-  const filterprofiles = profiles.filter(profile =>
-    profile.name.toLowerCase().includes(input.toLowerCase())
-  );
+  const [input, setInput] = useState("");
+  const { profileSearch, fetch, loading, error } = useSearch();
+
+  useEffect(() => {
+    fetch(input);
+  }, [input]);
+
+  const HandleChange = (e) => {
+    setInput(e.target.value);
+    fetch(e.target.value);
+  };
+
   return (
     <AdminLayout>
       <div className="flex justify-center items-center h-[88vh] p-4 overflow-hidden">
@@ -41,7 +47,7 @@ const AdminEmployees = () => {
                     aria-label="Search"
                     aria-describedby="button-addon2"
                     value={input}
-                    onChange={(e) => setInput(e.target.value)}
+                    onChange={HandleChange}
                   />
 
                   <span
@@ -63,25 +69,27 @@ const AdminEmployees = () => {
                   </span>
                 </div>
               </div>
-
-              {filterprofiles.length > 0 ? filterprofiles
-                .filter(
-                  (profile) => profile.designation.toLowerCase() !== "admin"
-                )
-                .reduce((rows, profile, index) => {
-                  if (index % 3 === 0) rows.push([]);
-                  rows[rows.length - 1].push(profile);
-                  return rows;
-                }, [])
-                .map((row, rowIndex) => (
-                  <div key={rowIndex} className="flex justify-between m-5">
-                    {row.map((profile) => (
-                      <div key={profile.id} className="flex-1 me-4">
-                        <ProfileCard profile={profile} />
-                      </div>
-                    ))}
-                  </div>
-                )):<div className="flex justify-center font-bold items-center min-h-[50vh]">No Data Available....</div>}
+              {profileSearch.length > 0 ? (
+                profileSearch
+                  .reduce((rows, profile, index) => {
+                    if (index % 3 === 0) rows.push([]);
+                    rows[rows.length - 1].push(profile);
+                    return rows;
+                  }, [])
+                  .map((row, rowIndex) => (
+                    <div key={rowIndex} className="flex justify-between m-5">
+                      {row.map((profile) => (
+                        <div key={profile.id} className="flex-1 me-4">
+                          <ProfileCard profile={profile} />
+                        </div>
+                      ))}
+                    </div>
+                  ))
+              ) : (
+                <div className="flex justify-center font-bold items-center min-h-[50vh]">
+                  No Data Available....
+                </div>
+              )}
             </>
           )}
         </div>
