@@ -16,6 +16,8 @@ const AdminEmployeeResponse = () => {
 
   const { upDateByAdmin, save } = useNotification();
 
+  console.log(projects, "ram ram");
+
   const { id, name } = useParams();
 
   useEffect(() => {

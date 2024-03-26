@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import baseUrl from "../baseUrl";
 
 const useNotification = (isOpen, clicked) => {
   const [data, setData] = useState([]);
@@ -13,7 +14,7 @@ const useNotification = (isOpen, clicked) => {
       setError(null);
       try {
         const response = await axios.get(
-          "http://localhost:8080/notification/getNotifications"
+          baseUrl + "/notification/getNotifications"
         );
         setData(response.data);
       } catch (error) {
@@ -30,7 +31,7 @@ const useNotification = (isOpen, clicked) => {
     setError(null);
     try {
       const response = await axios.delete(
-        `http://localhost:8080/notification/${data.employeeId}/deleteNotification`
+        `${baseUrl}/notification/${data.employeeId}/deleteNotification`
       );
       setClicked(true);
     } catch (error) {
@@ -45,7 +46,7 @@ const useNotification = (isOpen, clicked) => {
     setError(null);
     try {
       const response = await axios.delete(
-        `http://localhost:8080/notification/deleteAllNotification`
+        `${baseUrl}/notification/deleteAllNotification`
       );
       setClicked(true);
     } catch (error) {
@@ -60,7 +61,7 @@ const useNotification = (isOpen, clicked) => {
     setError(null);
     try {
       const response = await axios.post(
-        `http://localhost:8080/notification/saveNotification`,
+        `${baseUrl}/notification/saveNotification`,
         input
       );
       setSave(true);
@@ -77,7 +78,7 @@ const useNotification = (isOpen, clicked) => {
 
     try {
       const response = await axios.put(
-        `http://localhost:8080/notification/${id}/updateNotification`,
+        `${baseUrl}/notification/${id}/updateNotification`,
         input
       );
       setSave(true);
@@ -96,7 +97,7 @@ const useNotification = (isOpen, clicked) => {
     deteleAll,
     save,
     saveNotification,
-    upDateByAdmin
+    upDateByAdmin,
   };
 };
 

@@ -1,5 +1,6 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
+import baseUrl from '../baseUrl'
 
 function useProfile() {
   const [profile, setProfile] = useState({});
@@ -12,7 +13,7 @@ function useProfile() {
       try {
         const data = JSON.parse(sessionStorage.getItem("user"));
         const res = await Axios.get(
-          `http://localhost:8080/employee/${data.id}/getEmployee`
+          `${baseUrl}/employee/${data.id}/getEmployee`
         );
         setProfile(res.data);
       } catch (error) {

@@ -3,10 +3,13 @@ import AdminLayout from "../../Layouts/AdminLayout";
 import ProfileCard from "../../Components/Cards/ProfileCard";
 import Loader from "../../Components/Loader/Loader";
 import useSearch from "../../Hooks/useSearch";
+import useGetAllEmployees from "../../Hooks/useGetAllEmployees";
 
 const AdminEmployees = () => {
   const [input, setInput] = useState("");
-  const { profileSearch, fetch, loading, error } = useSearch();
+  const { profiles, loading, error } = useGetAllEmployees();
+  const { profileSearch, fetch, errorLoad } = useSearch();
+  
 
   useEffect(() => {
     fetch(input);
@@ -22,7 +25,7 @@ const AdminEmployees = () => {
       <div className="flex justify-center items-center h-[88vh] p-4 overflow-hidden">
         <div className="border rounded-md h-full w-full shadow-lg bg-slate-50 overflow-auto">
           {loading && <Loader />}
-          {error && (
+          {(errorLoad || error) && (
             <div className="flex justify-center items-center h-full w-full">
               <div>Something Went Wrong...</div>
             </div>
@@ -39,7 +42,7 @@ const AdminEmployees = () => {
                     List of Employees, Select those you want to give ratings....
                   </span>
                 </div>
-                <div className="ml-5 flex w-[35%] items-center justify-between">
+                <div className="ml-5 flex w-[35%] items-center justify-betweeprofilen">
                   <input
                     type="search"
                     className="m-0 block w-[1px] min-w-0 flex-auto rounded border border-solid border-neutral-300 bg-transparent bg-clip-padding px-3 py-[0.25rem] text-base font-normal leading-[1.6] text-neutral-700 outline-none transition duration-200 ease-in-out focus:z-[3] focus:border-primary focus:text-neutral-700 focus:shadow-[inset_0_0_0_1px_rgb(59,113,202)] focus:outline-none motion-reduce:transition-none dark:border-neutral-500 dark:text-neutral-200 dark:placeholder:text-neutral-400 dark:focus:border-primary"
@@ -69,7 +72,29 @@ const AdminEmployees = () => {
                   </span>
                 </div>
               </div>
-              {profileSearch.length > 0 ? (
+              {input.trim() === "" ? (
+                profiles.length > 0 ? (
+                  profiles
+                    .reduce((rows, profile, index) => {
+                      if (index % 3 === 0) rows.push([]);
+                      rows[rows.length - 1].push(profile);
+                      return rows;
+                    }, [])
+                    .map((row, rowIndex) => (
+                      <div key={rowIndex} className="flex justify-between m-5">
+                        {row.map((profile) => (
+                          <div key={profile.id} className="flex-1 me-4">
+                            <ProfileCard profile={profile} />
+                          </div>
+                        ))}
+                      </div>
+                    ))
+                ) : (
+                  <div className="flex justify-center font-bold items-center min-h-[50vh]">
+                    No Data Available....
+                  </div>
+                )
+              ) : profileSearch.length > 0 ? (
                 profileSearch
                   .reduce((rows, profile, index) => {
                     if (index % 3 === 0) rows.push([]);
@@ -90,6 +115,28 @@ const AdminEmployees = () => {
                   No Data Available....
                 </div>
               )}
+
+              {/* {profileSearch.length > 0 ? (
+                profileSearch
+                  .reduce((rows, profile, index) => {
+                    if (index % 3 === 0) rows.push([]);
+                    rows[rows.length - 1].push(profile);
+                    return rows;
+                  }, [])
+                  .map((row, rowIndex) => (
+                    <div key={rowIndex} className="flex justify-between m-5">
+                      {row.map((profile) => (
+                        <div key={profile.id} className="flex-1 me-4">
+                          <ProfileCard profile={profile} />
+                        </div>
+                      ))}
+                    </div>
+                  ))
+              ) : (
+                <div className="flex justify-center font-bold items-center min-h-[50vh]">
+                  No Data Available....
+                </div>
+              )} */}
             </>
           )}
         </div>

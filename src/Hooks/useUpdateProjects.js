@@ -1,5 +1,6 @@
 import Axios from "axios";
 import { useState } from "react";
+import baseUrl from "../baseUrl"
 
 function useUpdateProjects() {
   const [loading, setLoading] = useState(false);
@@ -11,7 +12,7 @@ function useUpdateProjects() {
     try {
       setLoading(true);
       const response = await Axios.put(
-        `http://localhost:8080/employee/${id}/updateTask`,
+        `${baseUrl}/employee/${id}/updateTask`,
         formData
       );
       setData(response.data);
@@ -27,7 +28,7 @@ function useUpdateProjects() {
     try {
       setLoading(true);
       const response = await Axios.delete(
-        `http://localhost:8080/employee/${id}/deleteTask`
+        `${baseUrl}/employee/${id}/deleteTask`
       );
       setSeleteDelete(response.data);
     } catch (error) {

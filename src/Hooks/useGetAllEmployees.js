@@ -1,5 +1,6 @@
 import Axios from "axios";
 import { useEffect, useState } from "react";
+import baseUrl from '../baseUrl'
 
 function useProfile() {
   const [profiles, setProfile] = useState([]);
@@ -10,7 +11,7 @@ function useProfile() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await Axios.get(`http://localhost:8080/admin/getEmployees`);
+        const res = await Axios.get(`${baseUrl}/admin/getEmployees`);
         setProfile(res.data);
       } catch (error) {
         setError(error);
