@@ -6,23 +6,38 @@ import { useParams } from "react-router-dom";
 import AdminAssignRatingModal from "../../Components/modal/AdminAssignRatingModal";
 import useNotification from "../../Hooks/useNotification";
 import AdminResponseTable from "../../Components/Tables/AdminResponseTable";
+import AttributesModal from "../../Components/modal/AttributesModel";
+import RatingGrid from "../../Components/Tables/RatingGrid";
 
 const AdminEmployeeResponse = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isAttributeModalOpen, setAttributeModal] = useState(false);
   const [selectedProject, setSelectedProject] = useState(null);
   const [input, setInput] = useState("");
-  const { fetchData, profile, projects, loading, error, notifyByEmployee } =
-    useGetEmployeeAdmin();
+  const {
+    fetchData,
+    profile,
+    projects,
+    loading,
+    error,
+    notifyByEmployee,
+    attribute,
+  } = useGetEmployeeAdmin();
 
   const { upDateByAdmin, save } = useNotification();
-
-  console.log(projects, "ram ram");
-
   const { id, name } = useParams();
 
   useEffect(() => {
     fetchData(id);
-  }, [isEditModalOpen, save]);
+  }, [isEditModalOpen, save, isAttributeModalOpen]);
+
+  const edit = () => {
+    setAttributeModal(true);
+  };
+
+  const close = () => {
+    setAttributeModal(false);
+  };
 
   const openEditModal = (project) => {
     setSelectedProject(project);
@@ -48,6 +63,8 @@ const AdminEmployeeResponse = () => {
   const filteredProfiles = projects.filter((project) =>
     project.name.toLowerCase().includes(input.toLowerCase())
   );
+
+  const hasRatings = Object.values(attribute).some((value) => value > 0);
 
   return (
     <AdminLayout>
@@ -86,7 +103,17 @@ const AdminEmployeeResponse = () => {
                     </p>
                   </div>
                 ) : (
-                  <div className="flex justify-end">
+                  <div className="flex justify-between items-center">
+                    {notifyByEmployee && (
+                      <div className="ps-14">
+                        <button
+                          className="relative inline-flex items-center justify-center p-2 overflow-hidden font-medium text-black font-mono transition duration-300 ease-out border-2 border-green-500 hover:shadow-md "
+                          onClick={edit}
+                        >
+                          Rate Their Attributes
+                        </button>
+                      </div>
+                    )}
                     <div className="ml-5 flex w-[35%] items-center justify-between">
                       <input
                         type="search"
@@ -138,6 +165,11 @@ const AdminEmployeeResponse = () => {
                         />
                       </div>
                     ))}
+                    {hasRatings ? (
+                      <RatingGrid attribute={attribute} />
+                    ) : (
+                      <div>No attribute rating Assigned yet....</div>
+                    )}
                     <div className="ps-16 pb-5 flex justify-end items-center">
                       {!profile.noifybyadmin && (
                         <p
@@ -173,6 +205,13 @@ const AdminEmployeeResponse = () => {
                 <AdminAssignRatingModal
                   closeModal={closeEditModal}
                   project={selectedProject}
+                />
+              )}
+              {isAttributeModalOpen && (
+                <AttributesModal
+                  closeModal={close}
+                  attribute={attribute}
+                  id={profile.id}
                 />
               )}
             </>

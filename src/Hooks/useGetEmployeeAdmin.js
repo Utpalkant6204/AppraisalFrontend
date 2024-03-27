@@ -1,5 +1,5 @@
 import { useState } from "react";
-import {appAxios} from "../baseUrl";
+import { appAxios } from "../baseUrl";
 
 function useGetEmployeeAdmin() {
   const [profile, setProfile] = useState({});
@@ -16,7 +16,7 @@ function useGetEmployeeAdmin() {
       setProfile(res.data);
       setProjects(res.data.tasks);
       setNotify(res.data.notifybyemployee);
-      setAttribute(!res.data.attribute ? {} : res.data.attribute);
+      setAttribute(res.data.attributes);
     } catch (error) {
       setError(error);
       console.log(error);

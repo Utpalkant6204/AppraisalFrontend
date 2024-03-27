@@ -3,9 +3,10 @@ import EmployeeLayout from "../../Layouts/EmployeeLayout";
 import useUserDetails from "../../Hooks/useUserDetails";
 import Loader from "../../Components/Loader/Loader";
 import Table from "../../Components/Tables/employeeTable";
+import RatingGrid from "../../Components/Tables/RatingGrid";
 
 const TaskResponse = () => {
-  const { profile, projects, loading, error } = useUserDetails();
+  const { profile, projects, loading, error, attribute } = useUserDetails();
   const [averageRating, setAverageRating] = useState(0);
   const [bonusPercentage, setBonusPercentage] = useState(0);
 
@@ -38,6 +39,8 @@ const TaskResponse = () => {
     }
     setBonusPercentage(bonus);
   }, [projects]);
+
+  const hasRatings = Object.values(attribute).some((value) => value > 0);
 
   return (
     <EmployeeLayout>
@@ -82,6 +85,7 @@ const TaskResponse = () => {
                         <Table project={project} />
                       </div>
                     ))}
+                    {hasRatings ? <RatingGrid attribute={attribute} /> : <></>}
                   </div>
                 </div>
               ) : (

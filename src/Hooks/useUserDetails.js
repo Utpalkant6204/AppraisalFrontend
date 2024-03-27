@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import {appAxios} from "../baseUrl";
+import { appAxios } from "../baseUrl";
 
 function useUserDetails(isModalOpen, isEditModalOpen, deleteTask, save) {
   const [profile, setProfile] = useState({});
   const [projects, setProjects] = useState([]);
+  const [attribute, setAttribute] = useState({});
   const [notify, setNotify] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -17,6 +18,7 @@ function useUserDetails(isModalOpen, isEditModalOpen, deleteTask, save) {
         setProfile(res.data);
         setProjects(res.data.tasks);
         setNotify(res.data.notifybyemployee);
+        setAttribute(res.data.attributes);
       } catch (error) {
         setError(error);
       } finally {
@@ -32,7 +34,7 @@ function useUserDetails(isModalOpen, isEditModalOpen, deleteTask, save) {
     };
   }, [isModalOpen, isEditModalOpen, deleteTask, save]);
 
-  return { profile, projects, loading, error, notify };
+  return { profile, projects, loading, error, notify, attribute };
 }
 
 export default useUserDetails;

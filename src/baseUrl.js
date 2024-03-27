@@ -13,7 +13,6 @@ export const appAxios = axios.create({
 appAxios.interceptors.request.use(
   (config) => {
     const token = JSON.parse(sessionStorage.getItem("user"));
-    console.log(token);
     if (token) {
       config.headers.Authorization = `Bearer ${token.token}`;
     }
