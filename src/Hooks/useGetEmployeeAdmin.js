@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Axios from "axios";
-import baseUrl from "../baseUrl";
+import {appAxios} from "../baseUrl";
 
 function useGetEmployeeAdmin() {
   const [profile, setProfile] = useState({});
@@ -13,7 +12,7 @@ function useGetEmployeeAdmin() {
   const fetchData = async (id) => {
     try {
       setLoading(true);
-      const res = await Axios.get(baseUrl + `/employee/${id}/employeeDetails`);
+      const res = await appAxios.get(`/employee/${id}/employeeDetails`);
       setProfile(res.data);
       setProjects(res.data.tasks);
       setNotify(res.data.notifybyemployee);

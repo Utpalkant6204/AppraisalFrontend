@@ -1,6 +1,5 @@
 import { useState } from "react";
-import Axios from "axios";
-import baseUrl from "../baseUrl";
+import {appAxios} from "../baseUrl";
 
 const useSaveProjects = () => {
   const [loading, setLoading] = useState(false);
@@ -11,8 +10,8 @@ const useSaveProjects = () => {
     try {
       setLoading(true);
       const data = JSON.parse(sessionStorage.getItem("user"));
-      const response = await Axios.post(
-        `${baseUrl}/employee/${data.id}/saveTask`,
+      const response = await appAxios.post(
+        `/employee/${data.id}/saveTask`,
         formData
       );
       setData(response.data);

@@ -1,6 +1,6 @@
 import Axios from "axios";
 import { useState } from "react";
-import baseUrl from "../baseUrl";
+import {appAxios} from "../baseUrl";
 
 function useSearch() {
   const [profileSearch, setProfile] = useState([]);
@@ -11,7 +11,7 @@ function useSearch() {
   const fetch = async (s) => {
     try {
       setLoading(true);
-      const res = await Axios.get(`${baseUrl}/admin/search?name=` + s);
+      const res = await appAxios.get(`/admin/search?name=` + s);
 
       setProfile(res.data);
     } catch (error) {

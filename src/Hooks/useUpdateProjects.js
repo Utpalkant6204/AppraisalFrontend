@@ -1,6 +1,5 @@
-import Axios from "axios";
 import { useState } from "react";
-import baseUrl from "../baseUrl"
+import {appAxios} from "../baseUrl";
 
 function useUpdateProjects() {
   const [loading, setLoading] = useState(false);
@@ -11,8 +10,8 @@ function useUpdateProjects() {
     console.log(id);
     try {
       setLoading(true);
-      const response = await Axios.put(
-        `${baseUrl}/employee/${id}/updateTask`,
+      const response = await appAxios.put(
+        `/employee/${id}/updateTask`,
         formData
       );
       setData(response.data);
@@ -27,8 +26,8 @@ function useUpdateProjects() {
   const handledelete = async (id, setSeleteDelete) => {
     try {
       setLoading(true);
-      const response = await Axios.delete(
-        `${baseUrl}/employee/${id}/deleteTask`
+      const response = await appAxios.delete(
+        `/employee/${id}/deleteTask`
       );
       setSeleteDelete(response.data);
     } catch (error) {

@@ -1,6 +1,5 @@
-import Axios from "axios";
 import { useEffect, useState } from "react";
-import baseUrl from '../baseUrl'
+import { appAxios } from "../baseUrl";
 
 function useProfile() {
   const [profile, setProfile] = useState({});
@@ -12,9 +11,7 @@ function useProfile() {
     const fetchData = async () => {
       try {
         const data = JSON.parse(sessionStorage.getItem("user"));
-        const res = await Axios.get(
-          `${baseUrl}/employee/${data.id}/getEmployee`
-        );
+        const res = await appAxios.get(`employee/${data.id}/getEmployee`);
         setProfile(res.data);
       } catch (error) {
         setError(error);

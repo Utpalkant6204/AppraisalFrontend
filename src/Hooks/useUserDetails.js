@@ -1,6 +1,5 @@
-import Axios from "axios";
 import { useEffect, useState } from "react";
-import baseUrl from "../baseUrl";
+import {appAxios} from "../baseUrl";
 
 function useUserDetails(isModalOpen, isEditModalOpen, deleteTask, save) {
   const [profile, setProfile] = useState({});
@@ -14,9 +13,7 @@ function useUserDetails(isModalOpen, isEditModalOpen, deleteTask, save) {
     const fetchData = async () => {
       try {
         const data = JSON.parse(sessionStorage.getItem("user"));
-        const res = await Axios.get(
-          `${baseUrl}/employee/${data.id}/employeeDetails`
-        );
+        const res = await appAxios.get(`/employee/${data.id}/employeeDetails`);
         setProfile(res.data);
         setProjects(res.data.tasks);
         setNotify(res.data.notifybyemployee);

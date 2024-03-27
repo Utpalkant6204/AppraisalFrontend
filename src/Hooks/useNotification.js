@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import baseUrl from "../baseUrl";
+import {appAxios} from "../baseUrl";
 
 const useNotification = (isOpen, clicked) => {
   const [data, setData] = useState([]);
@@ -13,8 +13,8 @@ const useNotification = (isOpen, clicked) => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get(
-          baseUrl + "/notification/getNotifications"
+        const response = await appAxios.get(
+           "/notification/getNotifications"
         );
         setData(response.data);
       } catch (error) {
@@ -30,8 +30,8 @@ const useNotification = (isOpen, clicked) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.delete(
-        `${baseUrl}/notification/${data.employeeId}/deleteNotification`
+      const response = await appAxios.delete(
+        `/notification/${data.employeeId}/deleteNotification`
       );
       setClicked(true);
     } catch (error) {
@@ -45,8 +45,8 @@ const useNotification = (isOpen, clicked) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.delete(
-        `${baseUrl}/notification/deleteAllNotification`
+      const response = await appAxios.delete(
+        `/notification/deleteAllNotification`
       );
       setClicked(true);
     } catch (error) {
@@ -60,8 +60,8 @@ const useNotification = (isOpen, clicked) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.post(
-        `${baseUrl}/notification/saveNotification`,
+      const response = await appAxios.post(
+        `/notification/saveNotification`,
         input
       );
       setSave(true);
@@ -77,8 +77,8 @@ const useNotification = (isOpen, clicked) => {
     setError(null);
 
     try {
-      const response = await axios.put(
-        `${baseUrl}/notification/${id}/updateNotification`,
+      const response = await appAxios.put(
+        `/notification/${id}/updateNotification`,
         input
       );
       setSave(true);
