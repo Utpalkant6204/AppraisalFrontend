@@ -10,8 +10,8 @@ const EmployeeHome = () => {
 
   return (
     <EMPLayout>
-      <div className="flex justify-center items-center h-[88vh] p-4">
-        <div className="border rounded-md h-full w-full shadow-lg bg-slate-50">
+      <div className="flex justify-center items-center h-[88vh] p-4 overflow-hidden">
+        <div className="border rounded-md h-full w-full shadow-lg bg-slate-50 overflow-auto">
           {loading && <Loader />}
           {error && (
             <div className="flex justify-center items-center h-full w-full">

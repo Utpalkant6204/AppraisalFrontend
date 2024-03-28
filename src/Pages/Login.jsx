@@ -13,8 +13,6 @@ const Login = ({ login, admin }) => {
   const checkValidation = async (input) => {
     try {
       const res = await Axios.post("http://localhost:8080/login", input);
-
-      console.log(res);
       if (res.data.status == 302) {
         login(true);
 
@@ -31,8 +29,9 @@ const Login = ({ login, admin }) => {
       }
     } catch (error) {
       console.error(error);
-      console.log(error.response);
-      toast.error(error.response.data.message, { position: "top-center" });
+      error.response.data
+        ? toast.error(error.response.data.message, { position: "top-center" })
+        : toast.error("Bad Credentials", { position: "top-center" });
     }
   };
 
