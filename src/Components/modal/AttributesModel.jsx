@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Inputs from "../InputsFields/Inputs";
-import { useSearchParams } from "react-router-dom";
 import useAttributes from "../../Hooks/useAttributes";
 
 const AttributesModal = ({ closeModal, attribute, id }) => {

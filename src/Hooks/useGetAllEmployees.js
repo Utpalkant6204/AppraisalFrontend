@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 import {appAxios} from '../baseUrl'
 
-
-
 function useProfile() {
   const [profiles, setProfile] = useState([]);
   const [loading, setLoading] = useState(true);

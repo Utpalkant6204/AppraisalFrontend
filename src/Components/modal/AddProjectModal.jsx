@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Axios from "axios";
-import useSaveProjects from "../../Hooks/useSaveProjects";
+import useHandleProjects from "../../Hooks/useHandleProjects";
 
 const Modal = ({ closeModal }) => {
-  const { handleSubmit, error } = useSaveProjects();
+  const { handleSubmit, error } = useHandleProjects();
   const [input, setInput] = useState({
     name: "",
     description: "",

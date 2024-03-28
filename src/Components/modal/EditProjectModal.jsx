@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import useUpdateProjects from "../../Hooks/useUpdateProjects";
+import useHandleProjects from "../../Hooks/useHandleProjects";
 
 const EditProjectModal = ({ closeModal, project }) => {
-  const { handleSubmit, error } = useUpdateProjects();
+  const { handleUpdateProject, error } = useHandleProjects();
   const [input, setInput] = useState({
     name: project.name,
     description: project.description,
@@ -27,7 +27,7 @@ const EditProjectModal = ({ closeModal, project }) => {
       alert("End date must be greater than start date");
       return;
     }
-    handleSubmit(input, closeModal, project.id);
+    handleUpdateProject(input, closeModal, project.id);
     setInput({
       name: "",
       description: "",

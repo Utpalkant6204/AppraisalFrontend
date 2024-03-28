@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import useUpdateProjects from "../../Hooks/useUpdateProjects";
+import useHandleProjects from "../../Hooks/useHandleProjects";
 
 const AdminUpdateModal = ({ closeModal, project }) => {
   const [error1, setError1] = useState(false);
-  const { handleSubmit, error } = useUpdateProjects();
+  const { handleUpdateProject, error } = useHandleProjects();
   const [input, setInput] = useState({
     name: project.name,
     description: project.description,
@@ -28,7 +28,7 @@ const AdminUpdateModal = ({ closeModal, project }) => {
       setError1(true);
       return;
     }
-    handleSubmit(input, closeModal, project.id);
+    handleUpdateProject(input, closeModal, project.id);
   };
   return (
     <div className="fixed z-10 inset-0 overflow-y-auto">
