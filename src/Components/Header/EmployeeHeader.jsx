@@ -18,7 +18,7 @@ function EmployeeHeader() {
 
       if (data) {
         sessionStorage.removeItem("user");
-        navigation("/");
+        navigation("/", { replace: true });
       }
     } catch (error) {
       console.error(error);

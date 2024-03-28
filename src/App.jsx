@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, useNavigate } from "react-router-dom";
 import EmployeeHome from "./Pages/Employees/EmployeeHome";
 import Home from "./Pages/Home";
 import About from "./Pages/Employees/About";
@@ -16,6 +16,7 @@ import AdminEmployeeResponse from "./Pages/Admin/AdminEmployeeResponse";
 function App() {
   const [login, setLogin] = useState(false);
   const [admin, setAdmin] = useState(false);
+  const navigate = useNavigate();
 
   const check = () => {
     const session = JSON.parse(sessionStorage.getItem("user")) || null;
@@ -25,11 +26,10 @@ function App() {
       setAdmin(session.admin);
     }
   };
+  
   useEffect(() => {
     check();
-  }, []);
-
-  console.log(login, admin);
+  }, [navigate]);
 
   return (
     <Routes>
@@ -46,10 +46,6 @@ function App() {
       )}
 
       {login && !admin && (
-        // <Route path="/employee">
-        //   <Route index element={<EmployeeHome />} />
-        //   <Route path="about" element={<About />} />
-        // </Route>
         <>
           <Route path="/employee-home" element={<EmployeeHome />} />
           <Route path="/employee-about" element={<About />} />

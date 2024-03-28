@@ -8,9 +8,9 @@ const Home = () => {
 
   function checkbox() {
     if (available && admin) {
-      return "/admin";
+      return "/admin-home";
     } else if (available) {
-      return "/employee-about";
+      return "/employee-home";
     } else {
       return "/login";
     }

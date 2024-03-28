@@ -8,7 +8,7 @@ function useUserAvailability() {
     const data = sessionStorage.getItem("user") || null;
     if (data !== null) {
       setAvailable(true);
-      setId(data.id);
+      // setId(data.id);
       setAdmin(data.admin);
     }
   }, []);

@@ -22,11 +22,11 @@ const Login = ({ login, admin }) => {
 
         if (res.data.admin == true) {
           admin(true);
-          navigation("/admin-home");
+          navigation("/admin-home", { replace: true });
         }
 
         if (res.data.admin == false) {
-          navigation("/employee-home");
+          navigation("/employee-home", { replace: true });
         }
       }
     } catch (error) {
