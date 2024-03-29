@@ -5,6 +5,7 @@ import useUserAvailability from "../Hooks/useUserAvailability";
 
 const Home = () => {
   const { available, admin } = useUserAvailability();
+  console.log(admin, "from");
 
   function checkbox() {
     if (available && admin) {

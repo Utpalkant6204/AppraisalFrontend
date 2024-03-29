@@ -1,7 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
+import { CiCircleCheck } from "react-icons/ci";
 
 const ProfileCard = ({ profile }) => {
+  console.log(profile);
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
     const year = date.getFullYear();
@@ -71,13 +73,16 @@ const ProfileCard = ({ profile }) => {
               </tbody>
             </table>
 
-            <div className="text-center my-3">
+            <div className="text-center my-3 flex justify-center">
               <NavLink
                 to={`/admin-employees/${profile.id}/${profile.name}`}
                 className="text-xs text-indigo-500 italic hover:underline hover:text-indigo-600 font-medium"
               >
                 Assign Ratings
               </NavLink>
+              {profile.noifybyadmin && (
+                <CiCircleCheck size={16} className="text-green-900 mx-4" />
+              )}
             </div>
           </div>
         </div>

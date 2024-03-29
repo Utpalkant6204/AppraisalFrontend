@@ -12,6 +12,7 @@ import TaskResponse from "./Pages/Employees/TaskResponse";
 import AdminAbout from "./Pages/Admin/AdminProfile";
 import AdminEmployees from "./Pages/Admin/AdminEmployees";
 import AdminEmployeeResponse from "./Pages/Admin/AdminEmployeeResponse";
+import ProtectedRoutes from "./ProtectedRoutes";
 
 function App() {
   const [login, setLogin] = useState(false);
@@ -26,7 +27,7 @@ function App() {
       setAdmin(session.admin);
     }
   };
-  
+
   useEffect(() => {
     check();
   }, [navigate]);
@@ -54,7 +55,24 @@ function App() {
         </>
       )}
 
-      {login && admin && (
+      <Route
+        path="/admin-home"
+        element={<ProtectedRoutes Component={AdminHome} />}
+      />
+      <Route
+        path="/admin-about"
+        element={<ProtectedRoutes Component={AdminAbout} />}
+      />
+      <Route
+        path="/admin-employees"
+        element={<ProtectedRoutes Component={AdminEmployees} />}
+      />
+      <Route
+        path="/admin-employees/:id/:name"
+        element={<ProtectedRoutes Component={AdminEmployeeResponse} />}
+      />
+
+      {/* {login && admin && (
         <>
           <Route path="/admin-home" element={<AdminHome />} />
           <Route path="/admin-about" element={<AdminAbout />} />
@@ -64,7 +82,7 @@ function App() {
             element={<AdminEmployeeResponse />}
           />
         </>
-      )}
+      )} */}
 
       <Route path="*" element={<NotFound />} />
     </Routes>

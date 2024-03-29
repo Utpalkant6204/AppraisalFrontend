@@ -5,7 +5,7 @@ function useUserAvailability() {
   const [admin, setAdmin] = useState(false);
 
   useEffect(() => {
-    const data = sessionStorage.getItem("user") || null;
+    const data = JSON.parse(sessionStorage.getItem("user")) || null;
     if (data !== null) {
       setAvailable(true);
       // setId(data.id);
