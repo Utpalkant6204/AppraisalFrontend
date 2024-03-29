@@ -4,7 +4,7 @@ import Axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Login = ({ login, admin }) => {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
@@ -14,15 +14,10 @@ const Login = ({ login, admin }) => {
     try {
       const res = await Axios.post("http://localhost:8080/login", input);
       if (res.data.status == 302) {
-        login(true);
-
         sessionStorage.setItem("user", JSON.stringify(res.data));
-
         if (res.data.admin == true) {
-          admin(true);
           navigation("/admin-home", { replace: true });
         }
-
         if (res.data.admin == false) {
           navigation("/employee-home", { replace: true });
         }

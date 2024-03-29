@@ -9,12 +9,8 @@ function Protected(Props) {
     if (!check) {
       navigate("/login", { replace: true });
     }
-  });
-  return (
-    <div>
-      <Component />
-    </div>
-  );
+  }, [navigate]);
+  return <Component />;
 }
 
 export default Protected;

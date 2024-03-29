@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { CiCircleCheck } from "react-icons/ci";
 
 const ProfileCard = ({ profile }) => {
-  console.log(profile);
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
     const year = date.getFullYear();
