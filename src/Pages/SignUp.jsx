@@ -36,7 +36,11 @@ const SignUp = () => {
       }
     } catch (error) {
       console.error(error);
-      toast.error("something error happens...");
+      error.response.data
+        ? toast.error(error.response.data.message, { position: "top-center" })
+        : toast.error("something error happens....", {
+            position: "top-center",
+          });
     }
   };
 
@@ -64,8 +68,6 @@ const SignUp = () => {
 
       return;
     }
-
-    console.log(formInput);
 
     saveDatatoBackend(formInput);
     setFormInput({
