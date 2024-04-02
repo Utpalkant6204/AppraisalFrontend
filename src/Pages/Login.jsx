@@ -1,38 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import Axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import useLogin from "../Hooks/useLogin";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
-  const navigation = useNavigate();
+  const { checkValidation } = useLogin();
 
-  const checkValidation = async (input) => {
-    try {
-      const res = await Axios.post("http://localhost:8080/login", input);
-      if (res.data.status == 302) {
-        sessionStorage.setItem("user", JSON.stringify(res.data));
-        if (res.data.admin == true) {
-          navigation("/admin-home", { replace: true });
-        }
-        if (res.data.admin == false) {
-          navigation("/employee-home", { replace: true });
-        }
-      }
-    } catch (error) {
-      console.error(error);
-      error.response.data
-        ? toast.error(error.response.data.message, { position: "top-center" })
-        : toast.error("Bad Credentials", { position: "top-center" });
-    }
-  };
-
-  const HandleSubmit = (e) => {
+  const HandleSubmit = async (e) => {
     e.preventDefault();
-    //console.log(email, password);
 
     if (password.length < 8) {
       setError(true);
@@ -43,10 +21,7 @@ const Login = () => {
       email: email,
       password: password,
     };
-
-    //console.log(input);
-
-    checkValidation(input);
+    await checkValidation(input, toast);
     setEmail("");
     setPassword("");
   };

@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import EmployeeHome from "./Pages/Employees/EmployeeHome";
 import Home from "./Pages/Home";
 import About from "./Pages/Employees/About";
