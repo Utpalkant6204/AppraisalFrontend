@@ -1,5 +1,5 @@
 import React from "react";
-import image from "../assets/signup-bg.jpg";
+import image from "../assets/Images/signup-bg.jpg";
 import { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

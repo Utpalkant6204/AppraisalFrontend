@@ -1,11 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import useProfile from "../../Hooks/useProfile";
 import EMPLayout from "../../Layouts/EmployeeLayout";
 import Loader from "../../Components/Loader/Loader";
 import AboutCard from "../../Components/Cards/AboutCard";
+import PasswordChangeModal from "../../Components/modal/PasswordChangeModal";
 
 const About = () => {
   const { profile, loading, error } = useProfile();
+  const [modelOpen, setModelOpen] = useState(false);
 
   const formatDate = (inputDate) => {
     const date = new Date(inputDate);
@@ -17,6 +19,13 @@ const About = () => {
   };
 
   const formattedDate = formatDate(profile.dateOfJoining);
+  const handleClick = () => {
+    setModelOpen(true);
+  };
+
+  const closeModal = () => {
+    setModelOpen(false);
+  };
 
   return (
     <EMPLayout>
@@ -54,11 +63,25 @@ const About = () => {
                         <span className="ml-auto">{formattedDate}</span>
                       </li>
                     </ul>
+                    <div className="flex justify-center mt-2">
+                      <button
+                        onClick={handleClick}
+                        className="text-sm italic text-blue-500 underline hover:text-green-500 hover:scale-110"
+                      >
+                        Change Password
+                      </button>
+                    </div>
                   </div>
                 </div>
                 <AboutCard profile={profile} />
               </div>
             </div>
+          )}
+          {modelOpen && (
+            <PasswordChangeModal
+              closeModal={closeModal}
+              email={profile.email}
+            />
           )}
         </div>
       </div>
